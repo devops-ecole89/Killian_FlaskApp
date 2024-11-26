@@ -15,7 +15,7 @@ RUN git checkout dev
 COPY requirements.txt /home/python/app/
 RUN pip install --no-cache-dir -r requirements.txt
 
-CMD["python", "test.py"]
+CMD ["python", "test.py"]
 
 # Exposer le port Flask par défaut
 EXPOSE 5000
