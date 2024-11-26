@@ -2,7 +2,11 @@
 FROM python:3.10-slim
 
 # install git
-RUN apt-get update && apt-get install -y git && apt-get clean && rm -rf /var/lib/apt/lists/*
+RUN apt-get update && apt-get install -y \
+    git \
+    build-essential \
+    libssl-dev \
+    libffi-dev
 
 # Définir le répertoire de travail
 WORKDIR /home/python/app
@@ -14,9 +18,8 @@ WORKDIR /home/python/app/Killian_DevOps
 RUN git checkout dev
 
 # Copier le fichier requirements.txt et installer les dépendances
-RUN pip install --no-cache-dir -r requirements.txt
-
-CMD ["python", "test.py"]
+RUN pip install flask pytest
+#RUN pip install  -r requirements.txt
 
 # Exposer le port Flask par défaut
 EXPOSE 5000
