@@ -1,27 +1,32 @@
 # Utiliser une image Python légère
 FROM python:3.10-slim
 
-# install git
+# Installer les dépendances système nécessaires
 RUN apt-get update && apt-get install -y \
     git \
     build-essential \
     libssl-dev \
-    libffi-dev
+    libffi-dev \
+    --no-install-recommends && \
+    rm -rf /var/lib/apt/lists/*
 
 # Définir le répertoire de travail
 WORKDIR /home/python/app
 
-# Copier le code de l'application dans le conteneur
-RUN git clone https://github.com/devops-ecole89/Killian_DevOps.git /home/python/app/Killian_DevOps
+# Cloner le dépôt Git
+RUN git clone -b dev https://github.com/devops-ecole89/Killian_DevOps.git
+
+# Définir le répertoire de travail à l'intérieur du dépôt cloné
 WORKDIR /home/python/app/Killian_DevOps
 
-RUN git checkout dev
+# Installer les dépendances Python
+RUN pip install --no-cache-dir -r requirements.txt
 
-# Copier le fichier requirements.txt et installer les dépendances
-RUN pip install  -r requirements.txt
+# Définir la variable d'environnement PYTHONPATH pour inclure le répertoire du code
+ENV PYTHONPATH=/home/python/app/Killian_DevOps
 
-# Exposer le port Flask par défaut
+# Exposer le port (si nécessaire)
 EXPOSE 5000
 
-# Commande pour exécuter l'application Flask
-CMD ["pytest", "tests/"]
+# Commande pour exécuter les tests avec pytest
+CMD ["pytest"]
