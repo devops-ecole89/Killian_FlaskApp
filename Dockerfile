@@ -14,7 +14,6 @@ WORKDIR /home/python/app/Killian_DevOps
 RUN git checkout dev
 
 # Copier le fichier requirements.txt et installer les dépendances
-COPY ./requirements.txt /home/python/app/
 RUN pip install --no-cache-dir -r requirements.txt
 
 CMD ["python", "test.py"]
