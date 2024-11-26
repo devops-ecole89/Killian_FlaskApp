@@ -18,8 +18,8 @@ WORKDIR /home/python/app/Killian_DevOps
 RUN git checkout dev
 
 # Copier le fichier requirements.txt et installer les dépendances
-RUN pip install flask pytest
-#RUN pip install  -r requirements.txt
+#RUN pip install flask pytest
+RUN pip install  -r requirements.txt
 
 # Exposer le port Flask par défaut
 EXPOSE 5000
