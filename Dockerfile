@@ -8,8 +8,8 @@ RUN apt-get update && apt-get install -y git && apt-get clean && rm -rf /var/lib
 WORKDIR /home/python/app
 
 # Copier le code de l'application dans le conteneur
-RUN git clone https://github.com/devops-ecole89/Killian_DevOps.git /home/python/app/
-#WORKDIR /home/python/app/
+RUN git clone https://github.com/devops-ecole89/Killian_DevOps.git /home/python/app/Killian_DevOps
+WORKDIR /home/python/app/Killian_DevOps
 
 RUN git checkout dev
 
