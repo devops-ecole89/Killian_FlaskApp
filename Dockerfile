@@ -9,10 +9,13 @@ WORKDIR /home/python/app
 
 # Copier le code de l'application dans le conteneur
 RUN git clone https://github.com/devops-ecole89/Killian_DevOps.git /home/python/app/
+RUN git checkout dev
 
 # Copier le fichier requirements.txt et installer les dépendances
 COPY requirements.txt /home/python/app/
 RUN pip install --no-cache-dir -r requirements.txt
+
+CMD["python", "test.py"]
 
 # Exposer le port Flask par défaut
 EXPOSE 5000
