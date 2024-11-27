@@ -14,12 +14,17 @@ echo "Construct the Docker image..."
 docker build -t $DOCKER_IMAGE_NAME .
 
 echo "Execute the tests..."
-docker run --rm $DOCKER_IMAGE_NAME python -m pytest tests/
+docker run $DOCKER_IMAGE_NAME python -m pytest tests/
+docker logs $DOCKER_IMAGE_NAME
+
+echo $?
 TEST_STATUS=$?
 
 if [ $TEST_STATUS -eq 0 ]; then
     echo "Tests passed successfully"
+
 else
     echo "Tests failed"
     exit 1
 fi
+
