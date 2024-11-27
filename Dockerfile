@@ -28,5 +28,5 @@ ENV PYTHONPATH=/home/python/app/Killian_DevOps
 # Exposer le port (si nécessaire)
 EXPOSE 5000
 
-# Commande pour exécuter les tests avec pytest
-CMD ["pytest"]
+# Exécuter l'application
+CMD ["python", "main.py"]
