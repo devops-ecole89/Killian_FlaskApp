@@ -1,53 +1,53 @@
 name: Build and Push Docker Image
+
 on:
   push:
     branches:
       - main
   workflow_dispatch:
+
 jobs:
   build:
-    runs-on: ubuntu:latest
+    runs-on: ubuntu-latest
 
-  checkout:
     steps:
-      # Checkout the repository
+      # Étape 1 : Checkout du dépôt
       - name: Checkout repository code
         uses: actions/checkout@v3
 
-  docker:
-    # Log in to Docker Hub
-    - name: Log in to Docker Hub
-      uses: docker/login-action@v2
-      with:
-        username: ${{ secrets.DOCKER_USERNAME }}
-        password: ${{ secrets.DOCKER_PASSWORD }}
+      # Étape 2 : Connexion à Docker Hub
+      - name: Log in to Docker Hub
+        uses: docker/login-action@v2
+        with:
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_PASSWORD }}
 
-  version:
-    # Config version of image
-    - name: Set up Docker Tag
-      run: |
-        # read the current version from the VERSION file
-        version=$(cat VERSION)
-        echo "Current version: v$version x"
+      # Étape 3 : Lire et configurer la version
+      - name: Set up Docker Tag
+        id: versioning # Ajout d'un ID pour réutiliser cette étape
+        run: |
+          # Lire la version actuelle du fichier VERSION
+          version=$(cat VERSION)
+          echo "Current version: v$version"
+          next_version=$((version + 1))
+          echo $next_version > VERSION
+          echo "next_version=v$next_version" >> $GITHUB_ENV
 
-  Build Docker:
-    # Build docker image
-    - name: Build Docker image
-      run: |  
-        docker build -t ${{ secrets.DOCKER_USERNAME }}/devops-test:v${{ env.next_version }} .
+      # Étape 4 : Construire l'image Docker
+      - name: Build Docker image
+        run: |
+          docker build -t ${{ secrets.DOCKER_USERNAME }}/devops-test:v${{ env.next_version }} .
 
-  Push Docker:
-    # Push docker image
-    - name: Push Docker image
-      run: |
-        docker push ${{ secrets.DOCKER_USERNAME }}/devops-test:v${{ env.next_version }}
+      # Étape 5 : Pousser l'image sur Docker Hub
+      - name: Push Docker image
+        run: |
+          docker push ${{ secrets.DOCKER_USERNAME }}/devops-test:v${{ env.next_version }}
 
-  Update Version:
-    # Update version file
-    - name: Commit updated VERSION file
-      run: |
-        git config --global user.name "github-actions[bot]"
-        git config --global user.email "github-actions[bot]@users.noreply.github.com"
-        git add VERSION
-        git commit -m "Bump version to v${{ env.next_version }}"
-        git push
+      # Étape 6 : Mettre à jour le fichier VERSION
+      - name: Commit updated VERSION file
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          git add VERSION
+          git commit -m "Bump version to v${{ env.next_version }}"
+          git push
