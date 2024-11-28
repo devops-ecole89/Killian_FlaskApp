@@ -24,7 +24,7 @@ jobs:
         run: |
           # read the current version from the VERSION file
           version=$(cat VERSION)
-          echo "Current version: v$version"
+          echo "Current version: v$version x"
 
       # Build docker image
       - name: Build Docker image
