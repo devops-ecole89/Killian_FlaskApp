@@ -1,0 +1,15 @@
+name: Push Main Workflow
+run-name: Rebuild the Docker container
+on:
+  push:
+    branches:
+      - main
+jobs:
+  build:
+    runs-on: python:3.10-slim
+    steps:
+      - run: apt-get update
+      - run: apt-get install -y git build-essential libssl-dev libffi-dev --no-install-recommends
+      - run: rm -rf /var/lib/apt/lists/*
+      - run: pwd
+
