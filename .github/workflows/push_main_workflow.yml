@@ -21,7 +21,10 @@ jobs:
         run: |
           # read the current version from the VERSION file
           version=$(cat VERSION)
-          echo "Current version: v$version x"
+          echo "Current version: v$version"
+          next_version=$((version + 1))
+          echo $next_version > VERSION
+          echo "next_version=v$next_version" >> $GITHUB_ENV
       # Build docker image
       - name: Build Docker image
         run: |  
