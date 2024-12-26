@@ -10,8 +10,13 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Checkout code
+    - name: Checkout repository
       uses: actions/checkout@v3
+      with:
+        fetch-depth: 0
+
+    - name: List all branches
+      run: git branch -a
 
     - name: Set up Python
       uses: actions/setup-python@v4
