@@ -1,31 +1,23 @@
-# Utiliser une image Python légère
 FROM python:3.10-slim
 
-# Installer les dépendances système nécessaires
-RUN apt-get update && apt-get install -y \
-    git \
-    build-essential \
-    libssl-dev \
-    libffi-dev \
-    --no-install-recommends && \
-    rm -rf /var/lib/apt/lists/*
+# Install the necessary system dependencies
+RUN apt-get update && apt-get install -y git build-essential libssl-dev libffi-dev --no-install-recommends \
+    && rm -rf /var/lib/apt/lists/*
 
-# Définir le répertoire de travail
+# Define the working directory
 WORKDIR /home/python/app
 
-# Cloner le dépôt Git
-RUN git clone -b dev https://github.com/devops-ecole89/Killian_DevOps.git
+# Clone the Git repository and checkout the dev branch
+RUN git clone https://github.com/devops-ecole89/Killian_FlaskApp.git
+WORKDIR /home/python/app/Killian_FlaskApp
 
-# Définir le répertoire de travail à l'intérieur du dépôt cloné
-WORKDIR /home/python/app/Killian_DevOps
-
-# Installer les dépendances Python
+# Install the Python dependencies
 RUN pip install --no-cache-dir -r requirements.txt
 
-# Définir la variable d'environnement PYTHONPATH pour inclure le répertoire du code
-ENV PYTHONPATH=/home/python/app/Killian_DevOps
+# Define the PYTHONPATH environment variable to include the code directory
+ENV PYTHONPATH=/home/python/app/Killian_FlaskApp
 
-# Exposer le port (si nécessaire)
+# Expose the port (optional)
 EXPOSE 5000
 
 # Exécuter l'application

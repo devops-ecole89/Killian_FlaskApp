@@ -1,9 +1,8 @@
 from flask import Flask, render_template_string
 import pytest
+from addition import add_numbers
 app = Flask(__name__)
 
-def add_numbers(a, b):
-    return a + b
 @app.route("/")
 def hello():
     return "<h1 style='color:blue'>Welcome to the Flask App - by Killian</h1>"
