@@ -2,8 +2,9 @@
 
 This repository contains a Flask application with basic functionality and integrated unit tests. It is designed to demonstrate a simple CI/CD pipeline as part of a DevOps project.
 
-![CI/CD](https://github.com/<your-username>/<your-repo>/actions/workflows/ci-pipeline.yml/badge.svg)
-![Docker Build](https://github.com/<your-username>/<your-repo>/actions/workflows/docker-build.yml/badge.svg)
+[![CI/CD Pipeline](https://github.com/devops-ecole89/Killian_FlaskApp/actions/workflows/ci-pipeline.yml/badge.svg)](https://github.com/devops-ecole89/Killian_FlaskApp/actions/workflows/ci-pipeline.yml)
+[![Docker build](https://github.com/devops-ecole89/Killian_FlaskApp/actions/workflows/docker-build.yml/badge.svg)](https://github.com/devops-ecole89/Killian_FlaskApp/actions/workflows/docker-build.yml)
+
 
 ## Features
 - Flask-based web application.
